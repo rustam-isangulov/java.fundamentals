@@ -32,13 +32,12 @@ public class FtpClientUnitTest {
     @DisplayName("Test successful ftp connection")
     public class openIfSuccessful {
         private final FTPClient mockFTPClient = mock(FTPClient.class);
-
         private FtpClient client;
-
         private FTPFile[] ftpFiles;
 
         @BeforeEach
         public void setUp() throws IOException {
+
             // set up a happy path for connecting / login sequence
             when(mockFTPClient.getReplyCode())
                     .thenReturn(230);
@@ -66,6 +65,7 @@ public class FtpClientUnitTest {
         @Test
         @DisplayName("Test open connection sequence for default port/user")
         public void testFTPOpenDefault() throws IOException {
+
             // open connection should have three steps:
             // connect to server @ port
             verify(mockFTPClient).connect("localhost", 21);
@@ -79,6 +79,7 @@ public class FtpClientUnitTest {
         @Test
         @DisplayName("Test close sequence")
         public void testFTPClose() throws IOException {
+
             // close (as in Closeable interface)
             client.close();
 
@@ -92,10 +93,6 @@ public class FtpClientUnitTest {
         @Test
         @DisplayName("Test list files call")
         public void testFTPListFiles() throws IOException {
-
-            // mock FTPClient response for the list command
-            when(mockFTPClient.listFiles(anyString()))
-                    .thenReturn(ftpFiles);
 
             // get the list through FtpClient
             List<FTPFile> list = client.listFiles(Path.of("/any/path"));
@@ -144,6 +141,7 @@ public class FtpClientUnitTest {
         @Test
         @DisplayName("Test downloading a file call")
         public void testFTPDownloadFile(@TempDir Path dataDir) throws IOException {
+
             // prepare an output stream to copy file content
             var out = new FileOutputStream
                     (dataDir.resolve("test.txt").toFile());
@@ -163,6 +161,7 @@ public class FtpClientUnitTest {
         @Test
         @DisplayName("Test connect problem behaviour")
         public void testConnectProblem() throws IOException {
+
             // set up a troublesome path for the connecting sequence
             when(mockFTPClient.getReplyCode())
                     .thenReturn(534);
@@ -175,6 +174,7 @@ public class FtpClientUnitTest {
         @Test
         @DisplayName("Test login problem behaviour")
         public void testLoginProblem() throws IOException {
+
             // set up a happy path for the connecting sequence
             when(mockFTPClient.getReplyCode())
                     .thenReturn(230);
@@ -197,6 +197,7 @@ public class FtpClientUnitTest {
         @Test
         @DisplayName("Test open connection sequence with port / user / password")
         public void testFTPOpenDetailed() throws IOException {
+
             // set up a happy path for connecting / login sequence
             when(mockFTPClient.getReplyCode())
                     .thenReturn(230);

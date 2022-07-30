@@ -34,6 +34,7 @@ public class FtpClientIntegrationTest {
     @Nested
     @DisplayName("Given that an FTP server with accessible content is available")
     class testWithFTPServerAvailable {
+
         private final URI server = URI.create("localhost");
         private final Path remoteBase = Path.of("/pub/");
         private final Path dataDir = Path.of("data");
@@ -42,8 +43,8 @@ public class FtpClientIntegrationTest {
 
         @BeforeEach
         public void setUp() {
-            // setup ftp server
 
+            // setup ftp server
             fakeFtpServer = new FakeFtpServer();
 
             // setup default account
@@ -154,6 +155,7 @@ public class FtpClientIntegrationTest {
             @DisplayName("Then the client throws Unable to login... exception")
             public void givenNewlyCreatedFTPClient_whenBadUserName_thenException() {
 
+                // bad username for the server
                 String badUserName = "nonympus";
 
                 Throwable exception = assertThrows(IOException.class
