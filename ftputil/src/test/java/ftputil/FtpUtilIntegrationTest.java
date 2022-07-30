@@ -41,9 +41,11 @@ public class FtpUtilIntegrationTest {
         @Nested
         @DisplayName("When we run it")
         public class Run {
+
             @Test
             @DisplayName("Then an error and help string are printed")
             public void testMainNoArgs() {
+
                 // redirect standard output stream
                 final PrintStream standardOut = System.out;
                 final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -75,6 +77,7 @@ public class FtpUtilIntegrationTest {
             @Test
             @DisplayName("Then the utility quits with 'Parsing...' error")
             public void testBadOption() {
+
                 String[] badString = new String[]
                         {"-s", "server"
                                 , "-badargument", "remote"
@@ -103,6 +106,7 @@ public class FtpUtilIntegrationTest {
             @Test
             @DisplayName("Then the utility quits with 'Unable to create...' error")
             public void testBadOption() {
+
                 String[] badString = new String[]
                         {"-s", "server"
                                 , "-r", "remote"
@@ -140,8 +144,8 @@ public class FtpUtilIntegrationTest {
 
         @BeforeEach
         public void setUp() {
-            // setup ftp server
 
+            // setup ftp server
             fakeFtpServer = new FakeFtpServer();
 
             // setup default account
@@ -176,6 +180,7 @@ public class FtpUtilIntegrationTest {
             @Test
             @DisplayName("Then we can download content remote files")
             public void testMainHappyPath() throws IOException {
+
                 String[] argString = new String[]
                         {"-s", server.toString()
                                 , "-r", remoteBase.toString()
@@ -218,6 +223,7 @@ public class FtpUtilIntegrationTest {
             @Test
             @DisplayName("Then we can it quits with 'Cannot create...' error")
             public void testMainHappyPath() throws IOException {
+
                 String[] argString = new String[]
                         {"-s", server.toString()
                                 , "-r", remoteBase.toString()
@@ -275,6 +281,7 @@ public class FtpUtilIntegrationTest {
             @Test
             @DisplayName("Then we can download content of remote files")
             public void testCorrectDownload() throws IOException {
+
                 // prepare necessary directory structure
                 Files.createDirectories(ftpUtil.getFullLocalPath());
 
@@ -309,6 +316,7 @@ public class FtpUtilIntegrationTest {
             @Test
             @DisplayName("Then it quits if the ftp server communications fails")
             public void testFTPError() throws IOException {
+
                 // change response to the next Connect request
                 ConnectCommandHandler handler = (ConnectCommandHandler) fakeFtpServer.getCommandHandler("Connect");
                 handler.setReplyCode(534);

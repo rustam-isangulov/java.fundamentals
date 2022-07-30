@@ -123,6 +123,7 @@ public class FtpClientIntegrationTest {
                     throw new RuntimeException(e);
                 }
             }
+
             @Test
             @DisplayName("Then we can download content of a remote file")
             public void testDownloadSingleFile() {
