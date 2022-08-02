@@ -3,7 +3,6 @@ package ftputil;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.io.TempDir;
 import org.mockftpserver.core.command.ConnectCommandHandler;
 import org.mockftpserver.fake.FakeFtpServer;
 import org.mockftpserver.fake.UserAccount;
@@ -58,8 +57,10 @@ public class FtpClientIntegrationTest {
             // setup sample directory and files structure
             FileSystem fileSystem = new UnixFakeFileSystem();
             fileSystem.add(new DirectoryEntry(remoteBase.toString()));
-            fileSystem.add(new FileEntry(remoteBase.resolve(dataDir.resolve(fileOnePath)).toString(), fileOneContent));
-            fileSystem.add(new FileEntry(remoteBase.resolve(dataDir.resolve(fileTwoPath)).toString(), fileTwoContent));
+            fileSystem.add(new FileEntry(remoteBase.resolve
+                    (dataDir.resolve(fileOnePath)).toString(), fileOneContent));
+            fileSystem.add(new FileEntry(remoteBase.resolve
+                    (dataDir.resolve(fileTwoPath)).toString(), fileTwoContent));
 
             fakeFtpServer.setFileSystem(fileSystem);
             fakeFtpServer.setSystemName("Unix");
